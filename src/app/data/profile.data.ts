@@ -1,0 +1,66 @@
+export const profile = {
+  name: 'Chandan Kumar Nayak',
+  headlines: [
+    'Full-Stack AI Engineer | FastAPI + Angular | Building Scalable Solutions for Smart Agriculture 🌱',
+    'AI-Powered Full-Stack Developer 🤖 | FastAPI · Angular · Python | Turning Data into Impact',
+    '🚀 Full-Stack Developer & AI Enthusiast | FastAPI · Angular · ML | Crafting Intelligent Web Apps',
+  ],
+  bio: `I'm a Full-Stack Developer and AI enthusiast specializing in building scalable, user-friendly applications using FastAPI and Angular. My projects — like an AI-powered agriculture dashboard and a job recommendation engine — combine machine learning with modern web tech to create real-world impact. I thrive in collaborative environments and love tackling challenges at the intersection of AI and development. Let's connect if you're working on AI or Full-Stack projects!`,
+  social: {
+    github: 'https://github.com/chandan2602',
+    linkedin: 'https://www.linkedin.com/in/chandankumarnayak9777/',
+    email: 'chandankunayak2003@gmail.com',
+    phone: '+919777000000',
+  },
+  experience: [
+    {
+      role: 'AI/ML Engineer',
+      company: 'Dhanush Softech',
+      period: 'JUN 2025 – Present',
+      bullets: [
+        'Developed a FastAPI backend for a job recommendation system, reducing response time by 40% and handling 10K+ monthly requests.',
+        'Built an Angular dashboard to visualize AI-generated insights, improving user engagement by 25%.',
+        'Trained an NLP model to parse 10K+ resumes, achieving 92% accuracy in skill extraction.',
+        'Containerized services with Docker, cutting deployment time by 50% across staging and production.',
+      ],
+    },
+  ],
+  projects: [
+    {
+      emoji: '🌱',
+      name: 'AI-Powered Smart Agriculture Dashboard',
+      tech: 'FastAPI, Angular, TensorFlow, Sentinel Hub API, PostgreSQL',
+      problem: 'Farmers lack real-time insights to optimize crop health and water usage.',
+      solution: 'Built a dashboard that analyzes satellite imagery and weather data to predict pests and irrigation needs.',
+      impact: 'Reduced water waste by 20% in pilot tests with 50+ farmers.',
+      github: 'https://github.com/chandannayak/agri-dashboard',
+      demo: '#',
+    },
+    {
+      emoji: '💼',
+      name: 'AI Job Recommendation Engine',
+      tech: 'FastAPI, Angular, NLP, Scikit-learn, Docker',
+      problem: 'Job seekers struggle to find roles that match their actual skill set.',
+      solution: 'Built an NLP pipeline that parses resumes and matches candidates to relevant job listings with ranked scores.',
+      impact: 'Achieved 92% skill-extraction accuracy; 10K+ monthly active users.',
+      github: 'https://github.com/chandannayak/job-recommender',
+      demo: '#',
+    },
+    {
+      emoji: '🤖',
+      name: 'Computer Vision Pest Detector',
+      tech: 'Python, TensorFlow, FastAPI, Angular, OpenCV',
+      problem: 'Manual pest detection is slow and error-prone, leading to crop losses.',
+      solution: 'Trained a CNN model on 5K+ labeled images to detect pests from field photos in real time.',
+      impact: 'Reduced false-positive rate to under 8%; deployed to 3 pilot farms.',
+      github: 'https://github.com/chandannayak/pest-detector',
+      demo: '#',
+    },
+  ],
+  skills: [
+    { category: 'Backend', items: ['FastAPI', 'Python', 'REST APIs', 'Docker', 'PostgreSQL', 'SQL/NoSQL'] },
+    { category: 'Frontend', items: ['Angular', 'TypeScript', 'HTML/CSS', 'SCSS', 'Chart.js', 'Leaflet.js'] },
+    { category: 'AI / ML', items: ['TensorFlow', 'NLP', 'Computer Vision', 'Scikit-learn', 'OpenCV', 'Pandas'] },
+    { category: 'Tools', items: ['Git', 'GitHub', 'AWS', 'Jira', 'Postman', 'VS Code'] },
+  ],
+};

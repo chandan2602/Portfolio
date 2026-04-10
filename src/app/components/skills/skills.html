@@ -1,0 +1,48 @@
+<section class="section skills" id="skills">
+  <div class="container">
+    <h2 class="section__title">My <span>Skills</span></h2>
+    <p class="section__subtitle">Technologies and tools I work with</p>
+
+    <!-- Category cards with floating tags -->
+    <div class="skills__categories">
+      @for (group of skillGroups; track group.category) {
+        <div class="skill-cat">
+          <div class="skill-cat__icon-wrap">
+            <div class="skill-cat__emoji" [style.color]="group.color">{{ group.emoji }}</div>
+            <div class="skill-cat__tags">
+              @for (item of group.items; track item) {
+                <span class="skill-tag">{{ item }}</span>
+              }
+            </div>
+          </div>
+          <p class="skill-cat__label">{{ group.category }}</p>
+        </div>
+      }
+    </div>
+
+    <!-- Circular proficiency meters -->
+    <div class="skills__meters">
+      @for (s of proficiency; track s.name) {
+        <div class="meter">
+          <div class="meter__ring">
+            <svg viewBox="0 0 100 100" class="meter__svg" aria-hidden="true">
+              <circle class="meter__track" cx="50" cy="50" r="40"/>
+              <circle class="meter__fill" cx="50" cy="50" r="40"
+                [style.strokeDashoffset]="getDashOffset(s.pct)"
+                [style.stroke]="s.color"/>
+            </svg>
+            <span class="meter__pct">{{ s.pct }}%</span>
+          </div>
+          <div class="meter__info">
+            <span class="meter__name">{{ s.name }}</span>
+            <div class="meter__icons">
+              @for (icon of s.icons; track icon) {
+                <span class="meter__icon">{{ icon }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

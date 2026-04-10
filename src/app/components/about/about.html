@@ -1,0 +1,64 @@
+<section class="section about" id="about">
+  <div class="container">
+    <h2 class="section__title">About <span>Me</span></h2>
+
+    <!-- Top row: icons | photo | icons -->
+    <div class="about__top">
+
+      <!-- Left icons -->
+      <div class="about__icons about__icons--left">
+        <div class="about__icon-item">
+          <div class="about__icon-circle">📚</div>
+          <p class="about__icon-label">Learning &<br/>Curiosity</p>
+        </div>
+        <div class="about__icon-item">
+          <div class="about__icon-circle">🧭</div>
+          <p class="about__icon-label">Geographic<br/>Focus</p>
+        </div>
+      </div>
+
+      <!-- Center photo -->
+      <div class="about__photo-wrap">
+        <div class="about__photo-frame" (click)="triggerPicker()">
+          <img [src]="photoSrc()" alt="Profile photo" class="about__photo" />
+          <div class="about__photo-overlay">
+            <span class="about__photo-hint">📷 Change Photo</span>
+          </div>
+        </div>
+        <input #filePicker type="file" accept="image/*" class="about__file-input"
+          (change)="onPhotoChange($event)" />
+      </div>
+
+      <!-- Right icons -->
+      <div class="about__icons about__icons--right">
+        <div class="about__icon-item">
+          <div class="about__icon-circle">🤝</div>
+          <p class="about__icon-label">Collaboration</p>
+        </div>
+        <div class="about__icon-item">
+          <div class="about__icon-circle">🌍</div>
+          <p class="about__icon-label">Global<br/>Impact</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passion heading -->
+    <h3 class="about__passion">A Passion for Innovation & Impact</h3>
+
+    <!-- Bio -->
+    <p class="about__bio">{{ bio() }}</p>
+
+    <!-- Stats row -->
+    <div class="about__stats">
+      @for (h of highlights; track h.label) {
+        <div class="about__stat">
+          <span class="about__stat-num">{{ h.value }}</span>
+          <span class="about__stat-label">{{ h.label }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- Quote -->
+    <p class="about__quote">"The only limit to your impact is your curiosity." – <span>CN</span></p>
+  </div>
+</section>

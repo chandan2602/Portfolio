@@ -1,0 +1,57 @@
+.contact {
+  background: radial-gradient(ellipse at center, rgba(30,64,175,0.2) 0%, transparent 70%), var(--bg2);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact__geo {
+  bottom: -60px;
+  left: -60px;
+  opacity: 0.06;
+}
+
+.contact__inner { text-align: center; position: relative; z-index: 1; }
+
+.contact__cta {
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.contact__links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.contact__cta-download {
+  margin-bottom: 3rem;
+}
+
+.contact__resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.8rem;
+  border-radius: 10px;
+  border: 2px dashed var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+
+.contact__resume-btn:hover {
+  background: rgba(255,107,53,0.1);
+  transform: translateY(-2px);
+}
+
+.contact__footer {
+  color: #334155;
+  font-size: 0.82rem;
+}

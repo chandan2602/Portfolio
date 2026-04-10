@@ -1,0 +1,136 @@
+.experience { background: var(--bg2); }
+
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.6rem;
+  top: 0.5rem;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--blue-light), var(--accent), transparent);
+}
+
+.timeline__item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.timeline__marker {
+  position: absolute;
+  left: -2.1rem;
+  top: 1.2rem;
+}
+
+.timeline__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg2);
+  box-shadow: 0 0 12px var(--orange-glow);
+}
+
+.timeline__card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.timeline__card:hover {
+  border-color: rgba(59,130,246,0.4);
+  transform: translateX(4px);
+}
+
+.timeline__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.timeline__role {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.2rem;
+}
+
+.timeline__company {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.timeline__period {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  background: var(--card-bg2);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.timeline__bullets {
+  padding-left: 1.2rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timeline__bullets li {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.timeline__bullets li::marker { color: var(--blue-light); }
+
+.growth-img-wrap {
+  flex-shrink: 0;
+  width: 40%;
+  align-self: stretch;
+}
+
+.growth-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+}
+
+.experience__layout {
+  display: flex;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+.experience__layout .timeline {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .experience__layout {
+    flex-direction: column;
+  }
+
+  .growth-img-wrap {
+    width: 100%;
+    height: 260px;
+  }
+}

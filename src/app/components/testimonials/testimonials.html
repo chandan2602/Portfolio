@@ -1,0 +1,22 @@
+<section class="section testimonials" id="testimonials">
+  <div class="container">
+    <h2 class="section__title">What People <span>Say</span></h2>
+    <p class="section__subtitle">Feedback from colleagues and collaborators</p>
+
+    <div class="testimonials__grid">
+      @for (t of testimonials; track t.name) {
+        <blockquote class="testimonial-card">
+          <div class="testimonial-card__quote" aria-hidden="true">"</div>
+          <p class="testimonial-card__text">{{ t.text }}</p>
+          <footer class="testimonial-card__footer">
+            <div class="testimonial-card__avatar" aria-hidden="true">{{ t.initials }}</div>
+            <div>
+              <cite class="testimonial-card__name">{{ t.name }}</cite>
+              <p class="testimonial-card__role">{{ t.role }}</p>
+            </div>
+          </footer>
+        </blockquote>
+      }
+    </div>
+  </div>
+</section>

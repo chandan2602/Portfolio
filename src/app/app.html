@@ -1,0 +1,42 @@
+<nav class="nav" role="navigation" aria-label="Main navigation" [class.hidden]="isLoginPage()">
+  <a routerLink="/" class="nav__logo">
+    <img src="/images/my_logo.png" alt="Chandan Nayak logo" class="nav__logo-img" />
+  </a>
+  <ul class="nav__links">
+    <li><a routerLink="/" routerLinkActive="nav__link--active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+    <li><a routerLink="/about" routerLinkActive="nav__link--active">About</a></li>
+    <li><a routerLink="/experience" routerLinkActive="nav__link--active">Experience</a></li>
+    <li><a routerLink="/projects" routerLinkActive="nav__link--active">Projects</a></li>
+    <li><a routerLink="/skills" routerLinkActive="nav__link--active">Skills</a></li>
+    <li><a routerLink="/contact" routerLinkActive="nav__link--active">Contact</a></li>
+  </ul>
+  <div class="nav__right">
+    <a href="/resume/Chandan_Kumar_Nayak_Resume.pdf" download class="nav__resume">Download Resume</a>
+
+    @if (visitor()) {
+      <div class="nav__user" (click)="toggleDropdown()">
+        <div class="nav__avatar" [title]="visitor()!.name">{{ getInitials() }}</div>
+
+        @if (dropdownOpen()) {
+          <div class="nav__dropdown">
+            <div class="nav__dropdown-info">
+              <span class="nav__dropdown-name">{{ visitor()!.name }}</span>
+              <span class="nav__dropdown-email">{{ visitor()!.email }}</span>
+            </div>
+            <hr class="nav__dropdown-divider" />
+            <button class="nav__dropdown-logout" (click)="logout()">
+              🚪 Logout
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet />
+</main>
+
+<app-footer [class.hidden]="isLoginPage()" />
+<app-chatbot [class.hidden]="isLoginPage()" />

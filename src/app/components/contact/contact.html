@@ -1,0 +1,31 @@
+<section class="section contact" id="contact">
+  <!-- Geometric motif -->
+  <svg class="geo-motif contact__geo" width="300" height="300" viewBox="0 0 300 300" aria-hidden="true">
+    <polygon points="150,10 290,290 10,290" fill="none" stroke="#ff6b35" stroke-width="1.5"/>
+    <polygon points="150,40 260,270 40,270" fill="none" stroke="#3b82f6" stroke-width="1"/>
+    <circle cx="150" cy="150" r="90" fill="none" stroke="#ff6b35" stroke-width="0.8"/>
+  </svg>
+
+  <div class="container contact__inner">
+    <h2 class="section__title">Let's <span>Connect</span></h2>
+    <p class="contact__cta">
+      Working on AI, Full-Stack projects, or something innovative? I'd love to hear about it.
+      Drop me a message or connect on social — let's build something great together.
+    </p>
+
+    <div class="contact__links">
+      <a [href]="linkedin()" target="_blank" rel="noopener" class="btn btn--primary">Connect on LinkedIn</a>
+      <a [href]="github()" target="_blank" rel="noopener" class="btn btn--outline">View GitHub</a>
+      <a [href]="'mailto:' + email()" class="btn btn--ghost">Email Me</a>
+    </div>
+
+    <div class="contact__cta-download">
+      <a href="/resume/Chandan_Kumar_Nayak_Resume.pdf" download class="contact__resume-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume
+      </a>
+    </div>
+
+    <p class="contact__footer">Built with Angular 20 &amp; ❤️ in India &nbsp;·&nbsp; Chandan Kumar Nayak © 2026</p>
+  </div>
+</section>
