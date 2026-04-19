@@ -62,7 +62,7 @@ export class ChatbotComponent implements AfterViewChecked {
   messages = signal<Message[]>([
     {
       role: 'bot',
-      text: `👋 Hi! I'm Chandan's AI assistant powered by Groq. Ask me anything about his skills, projects, or experience!\n\nTry: "What projects has Chandan built?" or "What are his skills?"`,
+      text: `👋 Hi! I'm Chandan's AI assistant. Ask me anything about his skills, projects, or experience!\n\nTry: "What projects has Chandan built?" or "What are his skills?"`,
       time: this.now(),
     },
   ]);
@@ -75,8 +75,6 @@ export class ChatbotComponent implements AfterViewChecked {
   ];
 
   private history: GroqMessage[] = [];
-
-  private readonly apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
 
   toggle() { this.isOpen.update(v => !v); }
 
@@ -100,6 +98,102 @@ export class ChatbotComponent implements AfterViewChecked {
 
     this.history.push({ role: 'user', content: text });
 
+    // Check if user is admin (role_id = 1)
+    const visitorData = sessionStorage.getItem('visitor');
+    console.log('Visitor data from sessionStorage:', visitorData);
+    
+    if (visitorData) {
+      const visitor = JSON.parse(visitorData);
+      console.log('Parsed visitor:', visitor);
+      console.log('Role ID:', visitor.role_id, 'Type:', typeof visitor.role_id);
+      
+      const isAdmin = visitor.role_id === 1;
+      console.log('Is Admin?', isAdmin);
+      
+      if (isAdmin) {
+        console.log('Using RAG API for admin with role_id:', visitor.role_id);
+        this.useRagApi(text, visitor.role_id);
+      } else {
+        console.log('Using Groq API for visitor');
+        this.useGroqApi(text);
+      }
+    } else {
+      console.log('No visitor data, using Groq API');
+      this.useGroqApi(text);
+    }
+  }
+
+  private useRagApi(text: string, roleId: number) {
+    const body = { 
+      question: text,
+      role_id: roleId
+    };
+
+    console.log('Sending to RAG API:', body);
+
+    // Check if this is a download request
+    const isDownloadRequest = /download|export|save|get file|generate file/i.test(text);
+
+    if (isDownloadRequest) {
+      // Handle file download
+      this.http.post(`${environment.apiUrl}/api/ask`, body, { 
+        responseType: 'blob',
+        observe: 'response'
+      }).subscribe({
+        next: (response) => {
+          console.log('File download response:', response);
+          
+          // Extract filename from Content-Disposition header
+          const contentDisposition = response.headers.get('Content-Disposition');
+          let filename = 'download.csv';
+          if (contentDisposition) {
+            const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(contentDisposition);
+            if (matches && matches[1]) {
+              filename = matches[1].replace(/['"]/g, '');
+            }
+          }
+
+          // Create download link
+          const blob = response.body;
+          if (blob) {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            window.URL.revokeObjectURL(url);
+
+            this.isTyping.set(false);
+            this.addMessage('bot', `✅ File downloaded successfully: ${filename}`);
+          }
+        },
+        error: (err) => {
+          console.error('RAG API download error:', err);
+          this.isTyping.set(false);
+          this.addMessage('bot', '⚠️ Failed to download file. Please try again.');
+        },
+      });
+    } else {
+      // Handle regular JSON response
+      this.http.post<{ answer: string }>(`${environment.apiUrl}/api/ask`, body).subscribe({
+        next: (res) => {
+          console.log('RAG API response:', res);
+          const reply = res?.answer ?? "Sorry, I couldn't get a response. Please try again.";
+          this.history.push({ role: 'assistant', content: reply });
+          this.isTyping.set(false);
+          this.addMessage('bot', reply);
+        },
+        error: (err) => {
+          console.error('RAG API error:', err?.status, err?.error);
+          this.isTyping.set(false);
+          const errorMsg = err?.error?.detail ?? '⚠️ Something went wrong. Please try again in a moment.';
+          this.addMessage('bot', errorMsg);
+        },
+      });
+    }
+  }
+
+  private useGroqApi(text: string) {
     const messages: GroqMessage[] = [
       { role: 'system', content: SYSTEM_PROMPT },
       ...this.history.slice(-10),
@@ -117,7 +211,7 @@ export class ChatbotComponent implements AfterViewChecked {
       temperature: 0.7,
     };
 
-    this.http.post<any>(this.apiUrl, body, { headers }).subscribe({
+    this.http.post<any>('https://api.groq.com/openai/v1/chat/completions', body, { headers }).subscribe({
       next: (res) => {
         const reply = res?.choices?.[0]?.message?.content
           ?? "Sorry, I couldn't get a response. Please try again.";

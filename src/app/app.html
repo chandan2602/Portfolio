@@ -22,6 +22,11 @@
             <div class="nav__dropdown-info">
               <span class="nav__dropdown-name">{{ visitor()!.name }}</span>
               <span class="nav__dropdown-email">{{ visitor()!.email }}</span>
+              @if (visitor()!.is_admin) {
+                <span class="nav__dropdown-badge">👑 Admin</span>
+              } @else {
+                <span class="nav__dropdown-badge">👤 Visitor</span>
+              }
             </div>
             <hr class="nav__dropdown-divider" />
             <button class="nav__dropdown-logout" (click)="logout()">
@@ -40,3 +45,4 @@
 
 <app-footer [class.hidden]="isLoginPage()" />
 <app-chatbot [class.hidden]="isLoginPage()" />
+<app-call-button [class.hidden]="isLoginPage()" />

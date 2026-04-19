@@ -37,16 +37,25 @@ export class LoginComponent {
     }
     this.loading.set(true);
 
-    this.http.post<{ message: string; name: string }>(
+    this.http.post<{ message: string; name: string; role_id: number; id: number }>(
       `${environment.apiUrl}/api/login`,
       { name: this.name.trim(), email: this.email.trim(), phone: this.phone.trim() }
     ).subscribe({
       next: (res) => {
         sessionStorage.setItem('visitor', JSON.stringify({
+          id: res.id,
           name: res.name,
           email: this.email.trim(),
           phone: this.phone.trim(),
+          role_id: res.role_id,
+          is_admin: res.role_id === 1,
         }));
+        console.log('Login successful. User data:', {
+          id: res.id,
+          name: res.name,
+          role_id: res.role_id,
+          is_admin: res.role_id === 1
+        });
         this.loading.set(false);
         this.router.navigate(['/']);
       },

@@ -2,18 +2,19 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { FooterComponent } from './components/footer/footer';
 import { ChatbotComponent } from './components/chatbot/chatbot';
+import { CallButtonComponent } from './components/call-button/call-button';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, FooterComponent, ChatbotComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, FooterComponent, ChatbotComponent, CallButtonComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   isLoginPage = signal(false);
-  visitor = signal<{ name: string; email: string } | null>(null);
+  visitor = signal<{ name: string; email: string; role_id?: number; is_admin?: boolean } | null>(null);
   dropdownOpen = signal(false);
 
   constructor(private router: Router) {

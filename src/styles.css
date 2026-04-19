@@ -159,6 +159,17 @@ h1, h2, h3, h4 {
   word-break: break-all;
 }
 
+.nav__dropdown-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  margin-top: 0.3rem;
+  background: linear-gradient(135deg, var(--blue-light), var(--accent));
+  color: #fff;
+}
+
 .nav__dropdown-divider {
   border: none;
   border-top: 1px solid var(--border);

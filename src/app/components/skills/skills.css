@@ -1,5 +1,24 @@
 .skills {
   background: var(--bg);
+  background-image: url('/images/bg-2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.skills::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 35, 0.85);
+  z-index: 0;
+}
+
+.skills > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Category section ── */
