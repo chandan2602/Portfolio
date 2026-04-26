@@ -55,7 +55,7 @@ export class ContactComponent implements OnInit {
         message: this.message.trim(),
       })
       .subscribe({
-        next: (res) => {
+        next: () => {
           this.loading.set(false);
           this.success.set('Thank you for your feedback!');
           this.message = '';

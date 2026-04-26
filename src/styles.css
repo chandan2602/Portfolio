@@ -214,6 +214,7 @@ h1, h2, h3, h4 {
 
 .section__title span {
   background: linear-gradient(90deg, var(--blue-light), var(--accent));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
