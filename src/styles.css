@@ -1,5 +1,6 @@
 ﻿*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* parrent styling */
 :root {
   --bg: #0a0e1a;
   --bg2: #0f1629;
