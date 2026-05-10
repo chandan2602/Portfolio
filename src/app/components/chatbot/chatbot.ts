@@ -194,39 +194,24 @@ export class ChatbotComponent implements AfterViewChecked {
   }
 
   private useGroqApi(text: string) {
-    const messages: GroqMessage[] = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...this.history.slice(-10),
-    ];
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${environment.groqApiKey}`,
-    });
-
-    const body = {
-      model: 'llama-3.3-70b-versatile',
-      messages,
-      max_tokens: 400,
-      temperature: 0.7,
+    // Use backend API for chatbot responses
+    const body = { 
+      question: text,
+      role_id: 0 // Guest user
     };
 
-    this.http.post<any>('https://api.groq.com/openai/v1/chat/completions', body, { headers }).subscribe({
+    this.http.post<{ answer: string }>(`${environment.apiUrl}/api/ask`, body).subscribe({
       next: (res) => {
-        const reply = res?.choices?.[0]?.message?.content
-          ?? "Sorry, I couldn't get a response. Please try again.";
+        const reply = res?.answer ?? "Sorry, I couldn't get a response. Please try again.";
         this.history.push({ role: 'assistant', content: reply });
         this.isTyping.set(false);
         this.addMessage('bot', reply);
       },
       error: (err) => {
-        console.error('Groq API error:', err?.status, err?.error);
+        console.error('Backend API error:', err?.status, err?.error);
         this.isTyping.set(false);
-        if (err?.status === 429) {
-          this.addMessage('bot', '⏳ Rate limit hit. Please wait a moment and try again.');
-        } else {
-          this.addMessage('bot', '⚠️ Something went wrong. Please try again in a moment.');
-        }
+        const errorMsg = err?.error?.detail ?? '⚠️ Something went wrong. Please try again in a moment.';
+        this.addMessage('bot', errorMsg);
       },
     });
   }
