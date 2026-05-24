@@ -1,37 +1,78 @@
 <section class="hero" id="hero">
-  <!-- Geometric motif background -->
-  <svg class="geo-motif geo-motif--tl" width="400" height="400" viewBox="0 0 400 400" aria-hidden="true">
-    <polygon points="200,10 390,390 10,390" fill="none" stroke="#ff6b35" stroke-width="1.5"/>
-    <polygon points="200,50 350,370 50,370" fill="none" stroke="#3b82f6" stroke-width="1"/>
-    <polygon points="200,90 310,350 90,350" fill="none" stroke="#ff6b35" stroke-width="0.8"/>
-    <circle cx="200" cy="200" r="120" fill="none" stroke="#3b82f6" stroke-width="0.8"/>
-    <circle cx="200" cy="200" r="80" fill="none" stroke="#ff6b35" stroke-width="0.6"/>
-  </svg>
-
-  <div class="hero__layout container">
+  <div class="hero__layout">
     <div class="hero__content">
-      <p class="hero__greeting">Namaste, I'm</p>
-      <h1 class="hero__name">{{ name() }}</h1>
-      <p class="hero__headline">{{ headline() }}</p>
+      <div class="hero__tag">● AI & ML Engineer</div>
+      <h1 class="hero__title">
+        Building Intelligent Solutions<br />
+        with <span class="hero__highlight">AI & Machine Learning</span>
+      </h1>
+      <p class="hero__description">
+        I design, build and deploy end-to-end machine learning solutions
+        that solve real-world problems and create impact.
+      </p>
       <div class="hero__actions">
-        <a href="#projects" class="btn btn--primary">View My Work</a>
-        <a [href]="github()" target="_blank" rel="noopener" class="btn btn--outline">GitHub</a>
-        <a [href]="linkedin()" target="_blank" rel="noopener" class="btn btn--ghost">LinkedIn</a>
+        <a routerLink="/projects" class="btn btn--primary">View My Projects</a>
+        <a routerLink="/contact" class="btn btn--secondary">Contact Me</a>
       </div>
     </div>
-    <div class="hero__photo-wrap">
-      <div class="hero__photo-ring" aria-hidden="true"></div>
-      <img [src]="photoUrl()" alt="Photo of Chandan Kumar Nayak" class="hero__photo" />
+
+    <div class="hero__visual">
+      <div class="hero__image-container">
+        <img src="/images/image.png" alt="AI Brain" class="hero__ai-image" />
+      </div>
     </div>
   </div>
 
-  <div class="hero__tags container" aria-label="Tech stack">
-    @for (tag of tags; track tag) {
-      <span class="hero__tag">{{ tag }}</span>
-    }
-  </div>
+  <!-- Stats Section -->
+  <div class="hero__stats container">
+    <div class="stat-card">
+      <div class="stat-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      </div>
+      <div class="stat-card__text">
+        <h2 class="stat-card__value">10+</h2>
+        <p class="stat-card__label">Projects Completed</p>
+      </div>
+    </div>
 
-  <a href="#about" class="hero__scroll" aria-label="Scroll to About section">
-    <span class="hero__scroll-dot"></span>
-  </a>
+    <div class="stat-card">
+      <div class="stat-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+      </div>
+      <div class="stat-card__text">
+        <h2 class="stat-card__value">5+</h2>
+        <p class="stat-card__label">ML Models Deployed</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      </div>
+      <div class="stat-card__text">
+        <h2 class="stat-card__value">3+</h2>
+        <p class="stat-card__label">Years of Experience</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </div>
+      <div class="stat-card__text">
+        <h2 class="stat-card__value">100%</h2>
+        <p class="stat-card__label">Passion for AI</p>
+      </div>
+    </div>
+  </div>
 </section>

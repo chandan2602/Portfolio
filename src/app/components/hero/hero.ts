@@ -1,9 +1,11 @@
 import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { profile } from '../../data/profile.data';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })

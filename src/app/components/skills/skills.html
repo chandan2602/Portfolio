@@ -1,45 +1,56 @@
 <section class="section skills" id="skills">
   <div class="container">
     <h2 class="section__title">My <span>Skills</span></h2>
-    <p class="section__subtitle">Technologies and tools I work with</p>
+    <p class="section__subtitle">Technologies and tools I use to build intelligent solutions</p>
 
-    <!-- Category cards with floating tags -->
-    <div class="skills__categories">
-      @for (group of skillGroups; track group.category) {
-        <div class="skill-cat">
-          <div class="skill-cat__icon-wrap">
-            <div class="skill-cat__emoji" [style.color]="group.color">{{ group.emoji }}</div>
-            <div class="skill-cat__tags">
-              @for (item of group.items; track item) {
-                <span class="skill-tag">{{ item }}</span>
-              }
-            </div>
+    <!-- Filter Tabs -->
+    <div class="skills__filters">
+      @for (f of filters; track f.value) {
+        <button
+          class="skills__filter-btn"
+          [class.active]="activeFilter() === f.value"
+          (click)="setFilter(f.value)">
+          {{ f.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Skill Category Cards -->
+    <div class="skills__grid">
+      @for (group of visibleGroups; track group.category) {
+        <div class="skill-group">
+          <div class="skill-group__header">
+            <span class="skill-group__icon" [style.background]="group.color + '22'" [style.border-color]="group.color + '55'">
+              {{ group.icon }}
+            </span>
+            <h3 class="skill-group__title">{{ group.category }}</h3>
           </div>
-          <p class="skill-cat__label">{{ group.category }}</p>
+          <div class="skill-group__list">
+            @for (skill of group.skills; track skill.name) {
+              <div class="skill-item">
+                <div class="skill-item__top">
+                  <span class="skill-item__icon">{{ skill.icon }}</span>
+                  <span class="skill-item__name">{{ skill.name }}</span>
+                  <span class="skill-item__pct">{{ skill.pct }}%</span>
+                </div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__fill" [style.width.%]="skill.pct" [style.background]="'linear-gradient(90deg, ' + group.color + ', #a855f7)'"></div>
+                </div>
+              </div>
+            }
+          </div>
         </div>
       }
     </div>
 
-    <!-- Circular proficiency meters -->
-    <div class="skills__meters">
-      @for (s of proficiency; track s.name) {
-        <div class="meter">
-          <div class="meter__ring">
-            <svg viewBox="0 0 100 100" class="meter__svg" aria-hidden="true">
-              <circle class="meter__track" cx="50" cy="50" r="40"/>
-              <circle class="meter__fill" cx="50" cy="50" r="40"
-                [style.strokeDashoffset]="getDashOffset(s.pct)"
-                [style.stroke]="s.color"/>
-            </svg>
-            <span class="meter__pct">{{ s.pct }}%</span>
-          </div>
-          <div class="meter__info">
-            <span class="meter__name">{{ s.name }}</span>
-            <div class="meter__icons">
-              @for (icon of s.icons; track icon) {
-                <span class="meter__icon">{{ icon }}</span>
-              }
-            </div>
+    <!-- Stats Row -->
+    <div class="skills__stats">
+      @for (stat of stats; track stat.label) {
+        <div class="skills__stat">
+          <div class="skills__stat-icon">{{ stat.icon }}</div>
+          <div class="skills__stat-text">
+            <span class="skills__stat-value">{{ stat.value }}</span>
+            <span class="skills__stat-label">{{ stat.label }}</span>
           </div>
         </div>
       }

@@ -1,4 +1,7 @@
-.projects { background: var(--bg2); }
+.projects {
+  background: url('/images/bg-2.png') center center / cover no-repeat;
+  width: 106%;
+}
 
 .projects__grid {
   display: grid;
