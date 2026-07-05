@@ -1,0 +1,175 @@
+<div class="admin-page">
+
+  <!-- Page header + top-level tabs -->
+  <div class="admin-page__header">
+    <h2>Admin <span class="gradient-text">Panel</span></h2>
+    <div class="page-tabs">
+      <button class="page-tab" [class.page-tab--active]="activeTab() === 'visitors'" (click)="setTab('visitors')">
+        👥 Visitors
+      </button>
+      <button class="page-tab" [class.page-tab--active]="activeTab() === 'about'" (click)="setTab('about')">
+        📝 About Me
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ VISITORS TAB ═══ -->
+  @if (activeTab() === 'visitors') {
+    <div class="tab-panel">
+      <p class="tab-panel__subtitle">All registered visitors</p>
+
+      @if (visitorsLoading()) {
+        <div class="admin-state">Loading visitors...</div>
+      } @else if (visitorsError()) {
+        <div class="admin-state admin-state--error">{{ visitorsError() }}</div>
+      } @else if (visitors().length === 0) {
+        <div class="admin-state">No visitors found.</div>
+      } @else {
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Joined</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (v of visitors(); track v.id) {
+                <tr>
+                  <td class="muted">{{ v.id }}</td>
+                  <td class="bold">{{ v.name }}</td>
+                  <td>{{ v.email }}</td>
+                  <td>{{ v.phone }}</td>
+                  <td>
+                    <span class="badge" [class.badge--admin]="v.role_id === 1">
+                      {{ v.role_id === 1 ? '👑 Admin' : '👤 Visitor' }}
+                    </span>
+                  </td>
+                  <td class="muted">{{ v.created_at ? (v.created_at | date:'mediumDate') : '—' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <p class="table-count">Total: {{ visitors().length }} visitor{{ visitors().length !== 1 ? 's' : '' }}</p>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ═══ ABOUT ME TAB ═══ -->
+  @if (activeTab() === 'about') {
+    <div class="tab-panel">
+      <div class="tab-panel__topbar">
+        <p class="tab-panel__subtitle">Manage your about section content</p>
+        <button class="btn btn--primary" (click)="toggleAddForm()">
+          {{ showAddForm() ? '✕ Cancel' : '+ Add Entry' }}
+        </button>
+      </div>
+
+      @if (aboutSuccess()) {
+        <div class="alert alert--success">✓ {{ aboutSuccess() }}</div>
+      }
+      @if (aboutError()) {
+        <div class="alert alert--error">✕ {{ aboutError() }}</div>
+      }
+
+      <!-- Add Form -->
+      @if (showAddForm()) {
+        <div class="entry-form entry-form--add">
+          <h4 class="entry-form__title">New Entry</h4>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Category</label>
+              <select [(ngModel)]="addForm.category" name="addCat">
+                @for (cat of categories; track cat) {
+                  <option [value]="cat">{{ cat | titlecase }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Title</label>
+              <input type="text" [(ngModel)]="addForm.title" name="addTitle" placeholder="Entry title" />
+            </div>
+            <div class="form-field form-field--full">
+              <label>Description</label>
+              <textarea [(ngModel)]="addForm.description" name="addDesc" rows="3" placeholder="Description..."></textarea>
+            </div>
+            <div class="form-field form-field--full">
+              <label>Tags <span class="muted">(comma-separated)</span></label>
+              <input type="text" [(ngModel)]="addForm.tags" name="addTags" placeholder="e.g. Python, ML, FastAPI" />
+            </div>
+          </div>
+          <div class="entry-form__actions">
+            <button class="btn btn--primary" (click)="submitAdd()">Save Entry</button>
+            <button class="btn btn--ghost" (click)="toggleAddForm()">Cancel</button>
+          </div>
+        </div>
+      }
+
+      <!-- Category Tabs -->
+      @if (aboutLoading()) {
+        <div class="admin-state">Loading entries...</div>
+      } @else {
+        <div class="category-tabs">
+          @for (cat of categories; track cat) {
+            <button
+              class="category-tab"
+              [class.category-tab--active]="activeCategory() === cat"
+              (click)="setCategory(cat)">
+              {{ cat | titlecase }}
+              <span class="category-tab__count">{{ entriesForCategory(cat).length }}</span>
+            </button>
+          }
+        </div>
+
+        <div class="entries-list">
+          @if (entriesForCategory(activeCategory()).length === 0) {
+            <div class="admin-state">No entries in this category.</div>
+          }
+          @for (entry of entriesForCategory(activeCategory()); track entry.id) {
+            <div class="entry-card">
+              @if (editingId() === entry.id) {
+                <div class="entry-form">
+                  <div class="form-grid">
+                    <div class="form-field">
+                      <label>Title</label>
+                      <input type="text" [(ngModel)]="editForm.title" name="editTitle" />
+                    </div>
+                    <div class="form-field form-field--full">
+                      <label>Description</label>
+                      <textarea [(ngModel)]="editForm.description" name="editDesc" rows="3"></textarea>
+                    </div>
+                    <div class="form-field form-field--full">
+                      <label>Tags <span class="muted">(comma-separated)</span></label>
+                      <input type="text" [(ngModel)]="editForm.tags" name="editTags" />
+                    </div>
+                  </div>
+                  <div class="entry-form__actions">
+                    <button class="btn btn--primary" (click)="saveEdit(entry)">Save</button>
+                    <button class="btn btn--ghost" (click)="cancelEdit()">Cancel</button>
+                  </div>
+                </div>
+              } @else {
+                <div class="entry-card__body">
+                  <p class="entry-card__title">{{ entry.title }}</p>
+                  <p class="entry-card__desc">{{ entry.description }}</p>
+                  @if (parseTags(entry.tags).length) {
+                    <div class="entry-card__tags">
+                      @for (tag of parseTags(entry.tags); track tag) {
+                        <span class="tag">{{ tag }}</span>
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="entry-card__actions">
+                  <button class="btn btn--sm btn--ghost" (click)="startEdit(entry)">✏️ Edit</button>
+                  <button class="btn btn--sm btn--danger" (click)="deleteEntry(entry.id)">🗑 Delete</button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+
+</div>

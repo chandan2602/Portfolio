@@ -41,10 +41,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Environment
-.env
-.env.local
-src/environments/environment.local.ts
+# Environment (contains real API URLs — never commit)
 src/environments/environment.ts
 src/environments/environment.prod.ts
 

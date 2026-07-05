@@ -47,12 +47,14 @@ export class ContactComponent implements OnInit {
     this.error.set('');
     this.success.set('');
 
+    const visitorData = sessionStorage.getItem('visitor');
+    const visitor = visitorData ? JSON.parse(visitorData) : null;
+    const userId = visitor?.id ?? null;
+
     this.http
       .post<{ message: string }>(`${environment.apiUrl}/api/feedback`, {
-        name: this.name.trim(),
-        email: this.feedbackEmail.trim(),
-        phone: this.phone.trim(),
-        message: this.message.trim(),
+        user_id: userId,
+        feedback: this.message.trim(),
       })
       .subscribe({
         next: () => {

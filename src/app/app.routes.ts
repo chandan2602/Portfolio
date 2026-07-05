@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth.guard';
+import { adminGuard } from './admin.guard';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,11 @@ export const routes: Routes = [
     path: 'contact',
     canActivate: [authGuard],
     loadComponent: () => import('./components/contact/contact').then(m => m.ContactComponent),
+  },
+  {
+    path: 'admin/visitors',
+    canActivate: [authGuard, adminGuard],
+    loadComponent: () => import('./pages/admin/visitors/visitors').then(m => m.VisitorsComponent),
   },
   { path: '**', redirectTo: '' },
 ];

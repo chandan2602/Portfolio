@@ -9,6 +9,9 @@
     <li><a routerLink="/projects" routerLinkActive="nav__link--active">Projects</a></li>
     <li><a routerLink="/skills" routerLinkActive="nav__link--active">Skills</a></li>
     <li><a routerLink="/contact" routerLinkActive="nav__link--active">Contact</a></li>
+    @if (visitor()?.is_admin) {
+      <li><a routerLink="/admin/visitors" routerLinkActive="nav__link--active">Visitors</a></li>
+    }
   </ul>
   <div class="nav__right">
     <a href="/resume/Chandan_Kumar_Nayak_Resume_AI&ML.pdf" download class="nav__resume">Download Resume</a>
